@@ -33,6 +33,7 @@ export default {
   },
   mounted () {
     this.arr = this.random([1, 2, 3, 4, 5])
+    console.log(this.ifContain('231321', '32'))
   },
   methods: {
     random (arr) {
@@ -44,6 +45,41 @@ export default {
         arr[index] = temp
       })
       return arr
+    },
+    ifContain (longArr, shortArr) {
+      var firstIndex = -1
+      // longArr.forEach((item, index) => {
+      //   if (item === shortArr[0]) {
+      //     if (longArr.slice(index, shortArr.length).toString() === shortArr.toString()) {
+      //       firstIndex = index
+      //     }
+      //   }
+      // })
+      // return firstIndex
+      longArr = longArr.split('')
+      shortArr = shortArr.split('')
+      longArr.forEach((item, index) => {
+        if (item === shortArr[0]) {
+          if (arrEq(longArr.slice(index, index + shortArr.length), shortArr)) {
+            firstIndex = index
+          }
+        }
+      })
+      return firstIndex
+      function arrEq (arr1, arr2) {
+        if (arr1 === arr2) {
+          return true
+        } else if (arr1.length !== arr2.length) {
+          return false
+        } else {
+          for (var i in arr2) {
+            if (arr1[i] !== arr2[i]) {
+              return false
+            }
+          }
+          return true
+        }
+      } 
     }
   }
 }
