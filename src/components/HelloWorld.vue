@@ -11,6 +11,7 @@
       <button @click="$store.dispatch('addAction', 3)">+</button>
       <button @click="$store.dispatch({type: 'reduceAction', n: 3})">-</button>
     </div>
+    <p>{{ arr }}</p>
   </div>
 </template>
 
@@ -20,9 +21,29 @@ export default {
   props: {
     msg: String
   },
+  data () {
+    return {
+      arr: []
+    }
+  },
   computed: {
     count () {
       return this.$store.state.count
+    }
+  },
+  mounted () {
+    this.arr = this.random([1, 2, 3, 4, 5])
+  },
+  methods: {
+    random (arr) {
+      var temp, randomIndex
+      arr.forEach((item, index) => {
+        randomIndex = Math.floor(Math.random()*arr.length)
+        temp = arr[randomIndex]
+        arr[randomIndex] = item
+        arr[index] = temp
+      })
+      return arr
     }
   }
 }
